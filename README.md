@@ -1,16 +1,56 @@
-# React + Vite
+# AstraFit - Premium Fitness Tracking Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![AstraFit Preview](https://via.placeholder.com/1200x600/18181b/6d28d9?text=AstraFit+-+Your+Ultimate+Fitness+Companion)
 
-Currently, two official plugins are available:
+**Live Demo:** [https://TanujaGare.github.io/ASTRAFIT/](https://TanujaGare.github.io/ASTRAFIT/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+AstraFit is a modern, feature-rich web application designed to help users achieve their fitness goals through personalized workout planning, dynamic meal tracking, and cutting-edge AI features. Built with modern web technologies, it features a sleek glassmorphism UI tailored for a premium user experience.
 
-## React Compiler
+## ✨ Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **🤖 AI Food Scanner:** Leverages on-device Machine Learning (TensorFlow.js & MobileNet) to analyze food images uploaded by the user. It accurately identifies meals and dynamically calculates mathematically sound macronutrients (Calories, Protein, Carbs, Fats) instantly in the browser.
+- **🏋️ Interactive Workout Planner:** A fully interactive workout dashboard with an active stopwatch session timer, live tracking, and animated status transitions.
+- **🥗 Dynamic Meal Planner:** Provides an extensive database of balanced Indian meals organized by breakfast, lunch, dinner, and snacks, tracking real-time macronutrient progress.
+- **📈 Progress Tracking Dashboard:** Visualizes user consistency, body weight trends, and habit adherence using responsive Chart.js graphs.
+- **🎨 Modern UI/UX:** Built using Tailwind CSS and Framer Motion for buttery-smooth micro-animations, glowing elements, and a dark-mode "glassmorphism" aesthetic.
 
-## Expanding the ESLint configuration
+## 🛠️ Technologies Used
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend Framework:** React 19 + Vite
+- **Styling:** Vanilla CSS & Tailwind CSS
+- **Machine Learning:** TensorFlow.js (`@tensorflow/tfjs`), MobileNet (`@tensorflow-models/mobilenet`)
+- **Animations:** Framer Motion
+- **Icons:** Lucide React
+- **Data Visualization:** Chart.js & React-Chartjs-2
+- **Routing:** React Router DOM
+
+## 🚀 Getting Started Locally
+
+If you'd like to run this project on your local machine, follow these steps:
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/TanujaGare/ASTRAFIT.git
+   cd ASTRAFIT
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open your browser**
+   Navigate to `http://localhost:5173` to see the application running.
+
+## 📱 Features in Action
+
+### The AI Food Scanner
+The flagship feature of AstraFit is the AI Food Scanner. By leveraging `TensorFlow.js`, the application downloads a neural network directly into the client's browser. When a user uploads a photo of their meal, the model runs local inference to classify the image and algorithmically reverse-engineers a highly accurate macronutrient profile based on the classification.
+
+---
+*This project was developed as a comprehensive showcase of modern frontend development, UI/UX design principles, and client-side machine learning integration.*
