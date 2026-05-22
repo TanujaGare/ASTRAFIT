@@ -12,7 +12,7 @@ import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <div className="min-h-screen bg-background text-white selection:bg-primary/30">
         <Navbar />
         <Toaster 
