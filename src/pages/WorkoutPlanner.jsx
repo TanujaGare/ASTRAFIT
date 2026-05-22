@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Play, Clock, Flame } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Play, CheckCircle2, Clock, X, Flame } from 'lucide-react';
 import { workoutPlans } from '../data/mockData';
 import toast from 'react-hot-toast';
 
 export default function WorkoutPlanner() {
   const [activeTab, setActiveTab] = useState('upper_back_biceps');
+  const [completedWorkouts, setCompletedWorkouts] = useState({});
   const [isSessionActive, setIsSessionActive] = useState(false);
   const [sessionTime, setSessionTime] = useState(0);
+  const [activeVideo, setActiveVideo] = useState(null);
   const workouts = workoutPlans[activeTab] || [];
 
   useEffect(() => {
@@ -44,7 +46,16 @@ export default function WorkoutPlanner() {
   };
 
   const handlePlayVideo = (exerciseName) => {
-    toast(`Loading demonstration for ${exerciseName}...`, { icon: '🎥' });
+    // Array of high quality, royalty-free fitness videos for the portfolio demo
+    const demoVideos = [
+      "https://assets.mixkit.co/videos/preview/mixkit-man-training-with-a-kettlebell-in-the-gym-14603-large.mp4",
+      "https://assets.mixkit.co/videos/preview/mixkit-fit-man-working-out-with-battle-ropes-22756-large.mp4",
+      "https://assets.mixkit.co/videos/preview/mixkit-man-doing-push-ups-in-a-gym-2285-large.mp4"
+    ];
+    // Pick a video pseudo-randomly based on the exercise name length so it's consistent
+    const videoUrl = demoVideos[exerciseName.length % demoVideos.length];
+    
+    setActiveVideo({ name: exerciseName, url: videoUrl });
   };
 
   return (
@@ -150,6 +161,48 @@ export default function WorkoutPlanner() {
           </div>
         </div>
       </div>
+
+      {/* Video Modal Player */}
+      <AnimatePresence>
+        {activeVideo && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            onClick={() => setActiveVideo(null)}
+          >
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              className="bg-[#18181b] border border-white/10 rounded-2xl overflow-hidden w-full max-w-4xl shadow-2xl"
+              onClick={e => e.stopPropagation()} // Prevent closing when clicking the modal itself
+            >
+              <div className="flex justify-between items-center p-4 border-b border-white/10 bg-black/50">
+                <h3 className="text-xl font-bold">{activeVideo.name} <span className="text-zinc-400 text-sm font-normal ml-2">Demonstration</span></h3>
+                <button 
+                  onClick={() => setActiveVideo(null)}
+                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              
+              <div className="relative w-full aspect-video bg-black">
+                <video 
+                  src={activeVideo.url} 
+                  autoPlay 
+                  loop 
+                  controls 
+                  playsInline
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
