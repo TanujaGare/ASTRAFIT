@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Play, CheckCircle2, Clock, X, Flame } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { CheckCircle2, Clock, Flame } from 'lucide-react';
 import { workoutPlans } from '../data/mockData';
 import toast from 'react-hot-toast';
 
@@ -9,7 +9,6 @@ export default function WorkoutPlanner() {
   const [completedWorkouts, setCompletedWorkouts] = useState({});
   const [isSessionActive, setIsSessionActive] = useState(false);
   const [sessionTime, setSessionTime] = useState(0);
-  const [activeVideo, setActiveVideo] = useState(null);
   const workouts = workoutPlans[activeTab] || [];
 
   useEffect(() => {
@@ -43,19 +42,6 @@ export default function WorkoutPlanner() {
       toast.success(`Workout completed! Time: ${formatTime(sessionTime)}`, { icon: '🎉' });
       setSessionTime(0);
     }
-  };
-
-  const handlePlayVideo = (exerciseName) => {
-    // Array of high quality YouTube fitness tutorials
-    const demoVideos = [
-      "https://www.youtube.com/embed/gcNh17Ckjgg", // Squat
-      "https://www.youtube.com/embed/eGo4sOILFgQ", // Pull-up
-      "https://www.youtube.com/embed/IODxDxX7oi4"  // Push-up
-    ];
-    // Pick a video pseudo-randomly based on the exercise name length so it's consistent
-    const videoUrl = demoVideos[exerciseName.length % demoVideos.length] + "?autoplay=1";
-    
-    setActiveVideo({ name: exerciseName, url: videoUrl });
   };
 
   return (
@@ -100,12 +86,8 @@ export default function WorkoutPlanner() {
               className="glass-card p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between group"
             >
               <div className="flex items-center space-x-6 w-full sm:w-auto mb-4 sm:mb-0">
-                <div 
-                  onClick={() => handlePlayVideo(workout.name)}
-                  className="w-16 h-16 rounded-2xl bg-surface flex items-center justify-center border border-white/5 relative overflow-hidden group-hover:border-primary/50 transition-colors cursor-pointer"
-                >
-                  <Play className="w-6 h-6 text-primary absolute z-10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <img src={`https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=200&auto=format&fit=crop`} alt="exercise" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-20 transition-opacity" />
+                <div className="w-16 h-16 rounded-2xl bg-surface flex items-center justify-center border border-white/5 relative overflow-hidden group-hover:border-primary/50 transition-colors">
+                  <img src={`https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=200&auto=format&fit=crop`} alt="exercise" className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-80 transition-opacity" />
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold">{workout.name}</h3>
@@ -161,47 +143,6 @@ export default function WorkoutPlanner() {
           </div>
         </div>
       </div>
-
-      {/* Video Modal Player */}
-      <AnimatePresence>
-        {activeVideo && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
-            onClick={() => setActiveVideo(null)}
-          >
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="bg-[#18181b] border border-white/10 rounded-2xl overflow-hidden w-full max-w-4xl shadow-2xl"
-              onClick={e => e.stopPropagation()} // Prevent closing when clicking the modal itself
-            >
-              <div className="flex justify-between items-center p-4 border-b border-white/10 bg-black/50">
-                <h3 className="text-xl font-bold">{activeVideo.name} <span className="text-zinc-400 text-sm font-normal ml-2">Demonstration</span></h3>
-                <button 
-                  onClick={() => setActiveVideo(null)}
-                  className="p-2 hover:bg-white/10 rounded-full transition-colors"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-              
-              <div className="relative w-full aspect-video bg-black">
-                <iframe 
-                  src={activeVideo.url} 
-                  title="Workout Demonstration"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                  allowFullScreen
-                  className="w-full h-full border-0"
-                />
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
