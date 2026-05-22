@@ -14,15 +14,13 @@ AstraFit is a modern, feature-rich web application designed to help users achiev
 - **📈 Progress Tracking Dashboard:** Visualizes user consistency, body weight trends, and habit adherence using responsive Chart.js graphs.
 - **🎨 Modern UI/UX:** Built using Tailwind CSS and Framer Motion for buttery-smooth micro-animations, glowing elements, and a dark-mode "glassmorphism" aesthetic.
 
-## 🛠️ Technologies Used
+## 🛠️ Tech Stack
 
-- **Frontend Framework:** React 19 + Vite
-- **Styling:** Vanilla CSS & Tailwind CSS
-- **Machine Learning:** TensorFlow.js (`@tensorflow/tfjs`), MobileNet (`@tensorflow-models/mobilenet`)
-- **Animations:** Framer Motion
-- **Icons:** Lucide React
-- **Data Visualization:** Chart.js & React-Chartjs-2
-- **Routing:** React Router DOM
+- **React.js** - For building the user interface
+- **Tailwind CSS** - For beautiful, responsive styling
+- **TensorFlow AI** - For the machine learning food scanner
+- **Chart.js** - For the interactive progress graphs
+- **Framer Motion** - For the smooth animations
 
 ## 🚀 Getting Started Locally
 
