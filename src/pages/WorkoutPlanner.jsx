@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Play, Clock, Flame } from 'lucide-react';
 import { workoutPlans } from '../data/mockData';
@@ -6,10 +6,41 @@ import toast from 'react-hot-toast';
 
 export default function WorkoutPlanner() {
   const [activeTab, setActiveTab] = useState('upper_back_biceps');
+  const [isSessionActive, setIsSessionActive] = useState(false);
+  const [sessionTime, setSessionTime] = useState(0);
   const workouts = workoutPlans[activeTab] || [];
 
+  useEffect(() => {
+    let interval = null;
+    if (isSessionActive) {
+      interval = setInterval(() => {
+        setSessionTime((time) => time + 1);
+      }, 1000);
+    } else if (!isSessionActive && sessionTime !== 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isSessionActive, sessionTime]);
+
+  const formatTime = (totalSeconds) => {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    if (hours > 0) {
+      return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+
   const handleStartSession = () => {
-    toast.success('Session Started! Good luck!', { icon: '💪' });
+    if (!isSessionActive) {
+      setIsSessionActive(true);
+      toast.success('Session Started! Timer is running.', { icon: '💪' });
+    } else {
+      setIsSessionActive(false);
+      toast.success(`Workout completed! Time: ${formatTime(sessionTime)}`, { icon: '🎉' });
+      setSessionTime(0);
+    }
   };
 
   const handlePlayVideo = (exerciseName) => {
@@ -96,9 +127,11 @@ export default function WorkoutPlanner() {
               <div className="flex items-center justify-between pb-4 border-b border-white/10">
                 <div className="flex items-center space-x-3 text-zinc-400">
                   <Clock className="w-5 h-5" />
-                  <span>Est. Time</span>
+                  <span>{isSessionActive ? "Active Time" : "Est. Time"}</span>
                 </div>
-                <span className="font-semibold">45 mins</span>
+                <span className={`font-semibold ${isSessionActive ? "text-primary text-xl tabular-nums animate-pulse" : ""}`}>
+                  {isSessionActive ? formatTime(sessionTime) : "45 mins"}
+                </span>
               </div>
               <div className="flex items-center justify-between pb-4 border-b border-white/10">
                 <div className="flex items-center space-x-3 text-zinc-400">
@@ -110,9 +143,9 @@ export default function WorkoutPlanner() {
             </div>
             <button 
               onClick={handleStartSession}
-              className="w-full mt-6 bg-primary hover:bg-primary/90 text-white font-semibold py-3 rounded-xl transition-all shadow-[0_0_20px_rgba(109,40,217,0.3)] hover:shadow-[0_0_30px_rgba(109,40,217,0.5)]"
+              className={`w-full mt-6 text-white font-semibold py-3 rounded-xl transition-all ${isSessionActive ? 'bg-red-500 hover:bg-red-600 shadow-[0_0_20px_rgba(239,68,68,0.3)]' : 'bg-primary hover:bg-primary/90 shadow-[0_0_20px_rgba(109,40,217,0.3)] hover:shadow-[0_0_30px_rgba(109,40,217,0.5)]'}`}
             >
-              Start Session
+              {isSessionActive ? 'Stop Session' : 'Start Session'}
             </button>
           </div>
         </div>

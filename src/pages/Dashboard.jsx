@@ -81,14 +81,30 @@ export default function Dashboard() {
 
   return (
     <div className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="mb-8 flex flex-col sm:flex-row sm:items-end justify-between">
+      <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold mb-1">Welcome back, <span className="text-gradient">Demo User</span></h1>
           <p className="text-zinc-400">Here's your fitness overview for today.</p>
         </div>
-        <div className="mt-4 sm:mt-0 glass px-4 py-2 rounded-full inline-flex items-center space-x-2">
-          <Flame className="w-5 h-5 text-orange-500" />
-          <span className="font-semibold text-orange-500">12 Day Streak!</span>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <div className="glass px-4 py-2 rounded-xl inline-flex items-center space-x-3 border border-white/5 cursor-pointer hover:border-primary/30 transition-all">
+            <div className="bg-primary/20 p-1.5 rounded-lg">
+              <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-xs text-zinc-400">Gym Access</p>
+              <p className="text-sm font-semibold text-white">Show QR Pass</p>
+            </div>
+          </div>
+          <div className="glass px-4 py-2 rounded-xl inline-flex items-center space-x-2 border border-orange-500/20">
+            <Flame className="w-5 h-5 text-orange-500" />
+            <div>
+              <p className="text-xs text-zinc-400">Current Streak</p>
+              <span className="text-sm font-semibold text-orange-500">12 Days</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -142,44 +158,56 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="glass-card p-6 flex flex-col"
+          className="glass-card p-6 flex flex-col space-y-6"
         >
-          <h2 className="text-xl font-semibold mb-6">Today's Action Plan</h2>
-          
-          <div className="flex-1 space-y-4">
-            <Link to="/workouts" className="block bg-surface/50 border border-white/5 rounded-xl p-4 flex items-center justify-between group cursor-pointer hover:border-primary/30 transition-colors">
-              <div className="flex items-center space-x-4">
-                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Activity className="w-5 h-5 text-primary" />
+          <div>
+            <h2 className="text-xl font-semibold mb-4">Today's Action Plan</h2>
+            <div className="space-y-3">
+              <Link to="/workouts" className="block bg-surface/50 border border-white/5 rounded-xl p-3 flex items-center justify-between group cursor-pointer hover:border-primary/30 transition-colors">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                    <Activity className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm">Push Day</p>
+                    <p className="text-xs text-zinc-400">45 mins • Hypertrophy</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold">Push Day</p>
-                  <p className="text-xs text-zinc-400">45 mins • Hypertrophy</p>
-                </div>
-              </div>
-              <ChevronRight className="w-5 h-5 text-zinc-500 group-hover:text-primary transition-colors" />
-            </Link>
+              </Link>
 
-            <Link to="/meals" className="block bg-surface/50 border border-white/5 rounded-xl p-4 flex items-center justify-between group cursor-pointer hover:border-primary/30 transition-colors">
-              <div className="flex items-center space-x-4">
-                <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                  <Flame className="w-5 h-5 text-accent" />
+              <Link to="/meals" className="block bg-surface/50 border border-white/5 rounded-xl p-3 flex items-center justify-between group cursor-pointer hover:border-primary/30 transition-colors">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
+                    <Flame className="w-5 h-5 text-accent" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-sm">Lunch Meal</p>
+                    <p className="text-xs text-zinc-400">Chicken Curry & Rice</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold">Lunch Meal</p>
-                  <p className="text-xs text-zinc-400">Chicken Curry & Rice</p>
-                </div>
-              </div>
-              <ChevronRight className="w-5 h-5 text-zinc-500 group-hover:text-primary transition-colors" />
-            </Link>
+              </Link>
+            </div>
+            <button 
+              onClick={handleStartWorkout}
+              className="w-full mt-4 py-2.5 bg-white text-black text-sm font-semibold rounded-xl hover:bg-white/90 transition-colors"
+            >
+              Start Workout
+            </button>
           </div>
-          
-          <button 
-            onClick={handleStartWorkout}
-            className="w-full mt-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-white/90 transition-colors"
-          >
-            Start Workout
-          </button>
+
+          <div className="pt-4 border-t border-white/10">
+            <h2 className="text-sm font-semibold text-zinc-400 mb-3 uppercase tracking-wider">Recent Personal Bests</h2>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium">Barbell Bench Press</span>
+                <span className="text-sm font-bold text-primary">85 kg</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium">Barbell Squat</span>
+                <span className="text-sm font-bold text-primary">120 kg</span>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </div>

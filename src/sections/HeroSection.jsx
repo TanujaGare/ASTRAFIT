@@ -82,12 +82,38 @@ export default function HeroSection() {
                       <Activity className="w-12 h-12 text-accent/50" />
                     </div>
                   </div>
-                  <div className="glass-card h-64 p-6">
-                    <h3 className="text-lg font-medium mb-4">Weekly Progress</h3>
-                    <div className="w-full h-full bg-gradient-to-t from-primary/20 to-transparent rounded-lg border border-primary/20 flex items-end px-4 pb-4 space-x-4">
-                        {[40, 70, 45, 90, 60, 100, 80].map((h, i) => (
-                           <div key={i} className="w-full bg-primary/50 rounded-t-sm transition-all hover:bg-primary" style={{ height: `${h}%` }}></div>
-                        ))}
+                  <div className="glass-card h-64 p-6 flex flex-col">
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="text-lg font-medium">Weekly Progress</h3>
+                      <span className="text-xs font-semibold text-green-400 bg-green-500/10 px-2 py-1 rounded-full">+12%</span>
+                    </div>
+                    <div className="flex-1 w-full bg-gradient-to-t from-primary/10 to-transparent rounded-lg border border-primary/20 flex items-end px-2 pb-2 space-x-2 relative">
+                        {/* Y-axis labels */}
+                        <div className="absolute left-2 top-2 bottom-6 flex flex-col justify-between text-[10px] text-zinc-500 hidden sm:flex">
+                          <span>100%</span>
+                          <span>50%</span>
+                          <span>0%</span>
+                        </div>
+                        {/* Bars */}
+                        <div className="flex-1 flex items-end space-x-2 sm:pl-8 h-full pt-4">
+                          {[
+                            { day: 'M', val: 40 }, 
+                            { day: 'T', val: 70 }, 
+                            { day: 'W', val: 45 }, 
+                            { day: 'T', val: 90 }, 
+                            { day: 'F', val: 60 }, 
+                            { day: 'S', val: 100 }, 
+                            { day: 'S', val: 80 }
+                          ].map((d, i) => (
+                            <div key={i} className="flex-1 flex flex-col items-center group h-full justify-end">
+                              <span className="text-[10px] font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity mb-1">{d.val}%</span>
+                              <div className="w-full bg-primary/40 rounded-t-md transition-all group-hover:bg-primary relative" style={{ height: `${d.val}%` }}>
+                                <div className="absolute inset-0 bg-gradient-to-t from-transparent to-white/20 rounded-t-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                              </div>
+                              <span className="text-[10px] font-medium text-zinc-500 mt-2">{d.day}</span>
+                            </div>
+                          ))}
+                        </div>
                     </div>
                   </div>
                 </div>
