@@ -52,5 +52,3 @@ If you'd like to run this project on your local machine, follow these steps:
 ### The AI Food Scanner
 The flagship feature of AstraFit is the AI Food Scanner. By leveraging `TensorFlow.js`, the application downloads a neural network directly into the client's browser. When a user uploads a photo of their meal, the model runs local inference to classify the image and algorithmically reverse-engineers a highly accurate macronutrient profile based on the classification.
 
----
-*This project was developed as a comprehensive showcase of modern frontend development, UI/UX design principles, and client-side machine learning integration.*
