@@ -18,7 +18,6 @@ export default function Navbar() {
               <Link to="/workouts" className="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">Workouts</Link>
               <Link to="/meals" className="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">Meals</Link>
               <Link to="/progress" className="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">Progress</Link>
-              <a href="https://github.com/TanujaGare/ASTRAFIT" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors px-3 py-2 rounded-md text-sm font-medium">About Project</a>
             </div>
           </div>
           
