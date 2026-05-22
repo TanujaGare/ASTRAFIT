@@ -46,14 +46,14 @@ export default function WorkoutPlanner() {
   };
 
   const handlePlayVideo = (exerciseName) => {
-    // Array of high quality, royalty-free fitness videos for the portfolio demo
+    // Array of high quality YouTube fitness tutorials
     const demoVideos = [
-      "https://assets.mixkit.co/videos/preview/mixkit-man-training-with-a-kettlebell-in-the-gym-14603-large.mp4",
-      "https://assets.mixkit.co/videos/preview/mixkit-fit-man-working-out-with-battle-ropes-22756-large.mp4",
-      "https://assets.mixkit.co/videos/preview/mixkit-man-doing-push-ups-in-a-gym-2285-large.mp4"
+      "https://www.youtube.com/embed/gcNh17Ckjgg", // Squat
+      "https://www.youtube.com/embed/eGo4sOILFgQ", // Pull-up
+      "https://www.youtube.com/embed/IODxDxX7oi4"  // Push-up
     ];
     // Pick a video pseudo-randomly based on the exercise name length so it's consistent
-    const videoUrl = demoVideos[exerciseName.length % demoVideos.length];
+    const videoUrl = demoVideos[exerciseName.length % demoVideos.length] + "?autoplay=1";
     
     setActiveVideo({ name: exerciseName, url: videoUrl });
   };
@@ -190,13 +190,12 @@ export default function WorkoutPlanner() {
               </div>
               
               <div className="relative w-full aspect-video bg-black">
-                <video 
+                <iframe 
                   src={activeVideo.url} 
-                  autoPlay 
-                  loop 
-                  controls 
-                  playsInline
-                  className="w-full h-full object-contain"
+                  title="Workout Demonstration"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowFullScreen
+                  className="w-full h-full border-0"
                 />
               </div>
             </motion.div>
